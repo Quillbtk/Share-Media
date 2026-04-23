@@ -34,6 +34,8 @@ h1 { font-size:38px; margin-bottom:2px; }
   margin-bottom:18px;
 }
 
+/* DIVIDERS */
+
 .divider {
   display:flex;
   align-items:center;
@@ -70,15 +72,16 @@ h1 { font-size:38px; margin-bottom:2px; }
   color:white;
 }
 
+/* SECTIONS */
+
 .icon {
-  font-size:32px;
   color:var(--green);
+  margin-bottom:6px;
 }
 
 .section-title {
   color:var(--green);
   font-size:20px;
-  margin-top:8px;
   margin-bottom:10px;
 }
 
@@ -86,6 +89,8 @@ h1 { font-size:38px; margin-bottom:2px; }
   margin-bottom:28px;
   font-size:17px;
 }
+
+/* BUTTONS */
 
 .button {
   width:100%;
@@ -117,6 +122,8 @@ h1 { font-size:38px; margin-bottom:2px; }
 .button:hover {
   background:rgba(72,240,170,0.08);
 }
+
+/* INSTRUCTIONS */
 
 .instructions-wrapper {
   width:300px;
@@ -190,9 +197,13 @@ OPEN BLUETOOTH SETTINGS
 
 <div class="divider"><span>✦</span></div>
 
-<!-- FIXED SCREEN SHARING ICON -->
+<!-- SCREEN SHARE ICON (RESTORED PROPERLY) -->
 <div class="icon">
-📺
+<svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#48f0aa;fill:none;stroke-width:2;">
+<rect x="3" y="5" width="18" height="12"/>
+<path d="M4 17a5 5 0 015 5"/>
+<path d="M4 14a8 8 0 018 8"/>
+</svg>
 </div>
 
 <div class="section-title">SCREEN SHARING</div>
@@ -203,9 +214,30 @@ SELECT: ❨BK❩ • ❖ Guest TV
 
 <div id="buttons">
 
-<div class="button" onclick="show('cast')">CAST</div>
-<div class="button" onclick="show('airplay')">AIRPLAY</div>
-<div class="button" onclick="show('mirror')">SCREEN MIRROR</div>
+<div class="button" onclick="show('cast')">
+<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="12"/>
+<path d="M4 17a5 5 0 015 5"/>
+<path d="M4 14a8 8 0 018 8"/>
+</svg>
+CAST
+</div>
+
+<div class="button" onclick="show('airplay')">
+<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="12"/>
+<path d="M12 15l4 5H8l4-5z"/>
+</svg>
+AIRPLAY
+</div>
+
+<div class="button" onclick="show('mirror')">
+<svg viewBox="0 0 24 24">
+<rect x="4" y="7" width="10" height="6" rx="1.5"/>
+<rect x="10" y="11" width="10" height="6" rx="1.5"/>
+</svg>
+SCREEN MIRROR
+</div>
 
 </div>
 
@@ -220,22 +252,9 @@ SELECT: ❨BK❩ • ❖ Guest TV
 <script>
 
 function openSettings() {
-
-  const userAgent = navigator.userAgent;
-
-  // iOS — NO deep link (prevents Safari error)
-  if (/iPhone|iPad|iPod/.test(userAgent)) {
+  setTimeout(() => {
     alert("Open Settings → Bluetooth");
-    return;
-  }
-
-  // Android — still works
-  if (/android/i.test(userAgent)) {
-    window.location.href = "intent:#Intent;action=android.settings.BLUETOOTH_SETTINGS;end";
-    return;
-  }
-
-  alert("Open your device Settings, then Bluetooth.");
+  }, 200);
 }
 
 function show(type){
