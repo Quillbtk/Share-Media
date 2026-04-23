@@ -27,10 +27,7 @@ body {
   text-align:center;
 }
 
-h1 {
-  font-size:38px;
-  margin-bottom:2px;
-}
+h1 { font-size:38px; margin-bottom:2px; }
 
 .sub {
   color:var(--green);
@@ -56,8 +53,6 @@ h1 {
   margin:0 10px;
   color:var(--green);
 }
-
-/* FIXED ACTIVE DIVIDER */
 
 .active-divider {
   display:flex;
@@ -90,8 +85,6 @@ h1 {
   margin-top:8px;
   margin-bottom:10px;
 }
-
-/* LOCKED HEIGHT = NO SHIFT */
 
 .select {
   margin-bottom:28px;
@@ -142,8 +135,6 @@ h1 {
   margin:10px auto 0;
   text-align:left;
 }
-
-/* INDENTED STEPS */
 
 .step {
   display:flex;
@@ -218,7 +209,7 @@ h1 {
 
 <div class="select">SELECT: ❨BK❩ • ♫ Guest Speaker</div>
 
-<div class="button bluetooth">
+<div class="button bluetooth" onclick="openSettings()">
 <svg viewBox="0 0 24 24">
 <path d="M12 3l5 5-4 4 4 4-5 5V3z"/>
 <path d="M8 8l4 4-4 4"/>
@@ -228,25 +219,17 @@ OPEN BLUETOOTH SETTINGS
 
 <div class="divider"><span>✦</span></div>
 
-<div class="icon">
-<svg viewBox="0 0 24 24" style="width:30px;height:30px;stroke:#48f0aa;fill:none;stroke-width:2;">
-<rect x="3" y="5" width="18" height="12" fill="none"/>
-<path d="M4 17a5 5 0 015 5"/>
-<path d="M4 14a8 8 0 018 8"/>
-</svg>
-</div>
-
 <div class="section-title">SCREEN SHARING</div>
 
 <div class="select" id="deviceLine">
-  SELECT: ❨BK❩ • ❖ Guest TV
+SELECT: ❨BK❩ • ❖ Guest TV
 </div>
 
 <div id="buttons">
 
 <div class="button" onclick="show('cast')">
 <svg viewBox="0 0 24 24">
-<rect x="3" y="5" width="18" height="12" fill="none"/>
+<rect x="3" y="5" width="18" height="12"/>
 <path d="M4 17a5 5 0 015 5"/>
 <path d="M4 14a8 8 0 018 8"/>
 </svg>
@@ -255,7 +238,7 @@ CAST
 
 <div class="button" onclick="show('airplay')">
 <svg viewBox="0 0 24 24">
-<rect x="3" y="5" width="18" height="12" fill="none"/>
+<rect x="3" y="5" width="18" height="12"/>
 <path d="M12 15l4 5H8l4-5z"/>
 </svg>
 AIRPLAY
@@ -281,15 +264,33 @@ SCREEN MIRROR
 
 <script>
 
+function openSettings() {
+  const userAgent = navigator.userAgent;
+
+  if (/android/i.test(userAgent)) {
+    window.location.href = "intent:#Intent;action=android.settings.SETTINGS;end";
+    return;
+  }
+
+  if (/iPhone|iPad|iPod/.test(userAgent)) {
+    window.location.href = "App-Prefs:root=General";
+    setTimeout(() => {
+      alert("Open Settings → Bluetooth");
+    }, 800);
+    return;
+  }
+
+  alert("Open your device Settings, then Bluetooth.");
+}
+
 function show(type){
 
 document.getElementById("buttons").style.display="none";
 document.getElementById("back").style.display="block";
 document.getElementById("instructions").style.display="block";
 
-/* SWITCH TO MATCHED DIVIDER */
 document.getElementById("deviceLine").innerHTML =
-  '<div class="active-divider"><span>✦</span></div>';
+'<div class="active-divider"><span>✦</span></div>';
 
 function step3(){
 return `
@@ -336,15 +337,11 @@ document.getElementById("instructions").innerHTML = content;
 }
 
 function goBack(){
-
 document.getElementById("buttons").style.display="block";
 document.getElementById("instructions").style.display="none";
 document.getElementById("back").style.display="none";
-
-/* RESTORE TEXT */
 document.getElementById("deviceLine").innerHTML =
-  "SELECT: ❨BK❩ • ❖ Guest TV";
-
+"SELECT: ❨BK❩ • ❖ Guest TV";
 }
 
 </script>
